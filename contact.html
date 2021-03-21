@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Project - Group (?): Project Title </title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<script>
+        // define the callAPI function that takes a item name and owner as parameters
+        var callAPI = (itemName,ownerName)=>{
+            // instantiate a headers object
+            var myHeaders = new Headers();
+            // add content type header to object
+            myHeaders.append("Content-Type", "application/json");
+            // using built in JSON utility package turn object to string and store in a variable
+            var raw = JSON.stringify({"itemName":itemName,"ownerName":ownerName});
+            // create a JSON object with parameters for API call and store in a variable
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            // make API call with parameters and use promises to get response
+            fetch("https://cweefqf1r9.execute-api.us-east-1.amazonaws.com/dev", requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+    </script>
+<body>
+<div class="header">
+<h1>Project Title</h1>
+</div>
+
+<div class="row">
+  <div class="col-3 col-s-3 menu">
+    <ul>
+      <li><a href='index.html'> Home </a> </li>
+      <li><a href='about.html'> About </a> </li>
+      <li><a href='contact.html'> Contact </a> </li>
+      <li><a href='login.html'> User Login </a> </li>
+    </ul>
+  </div>
+
+  <div class="col-6 col-s-9">
+    <form>
+      <label>Item Name :</label>
+      <input type="text" id="iName">
+      <label>Owner Name :</label>
+      <input type="text" id="oName">
+      <!-- set button onClick method to call function we defined passing input values as parameters -->
+      <button type="button" onclick="callAPI(document.getElementById('iName').value,document.getElementById('oName').value)">Register Item</button>
+    </form>
+  </div>
+
+  <div class="col-3 col-s-12">
+    <div class="aside">
+      <h2>What?</h2>
+      <p>Explain the project you are you trying to build.</p>
+      <h2>Why?</h2>
+      <p>Explain the reason of your interest in this work.</p>
+      <h2>How?</h2>
+      <p>Explain your plans for the project.</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p> The provided CSS responds to different window sizes and device sizes. While you are not required to work on the asthetics of your project for grade, you may want to improve it if you are trying to build a real web system. </p>
+</div>
+</body>
+</html>
