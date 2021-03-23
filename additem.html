@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Project - Group (1): Community Bank </title>
+<link rel="stylesheet" type="text/css" href="style - Copy.css" />
+</h2>
+
+<body>
+<div class="header">
+    <h1>Local Community Bank</h1>
+</div>
+
+<div class="row">
+  <div class="col-12 col-s-12 menu" id="navigator">
+    <ul>
+     <li>
+        <a href='index.html' id = "home"> HOME </a> 
+        <a href='about.html'> ABOUT </a> 
+        <a href='contact.html'> CONTACT </a>
+        <a href='additem.html'> ADD LISTING </a>
+        <a href='signup.html' id = "sign-up"> SIGN UP </a> 
+        <a href='login.html' id = "login"> LOGIN </a> 
+        
+     </li>
+    </ul>
+  </div>
+
+  <div class="col-12 col-s-12" id="login_ui">
+    <h1> Register Item </h1>
+  
+    <form>
+    <table id = "login_table">
+     
+      <tr>
+        <td><label> Item Name : </label></td>
+        <td><input type="text" id="iName"></td> 
+      </tr>
+     
+      <tr>
+        <td><label>Owner Name :</label></td>
+        <td><input type="text" id="oName"></td>
+      </tr>
+
+        <!-- set button onClick method to call the function you want to handle this! -->
+      <tr>
+        <td><button id="add_button" type="button" onclick="callAPI(document.getElementById('iName').value,document.getElementById('oName').value)">Register Item</button></td><td>&nbsp;</td>   
+      </tr>
+
+    </form>
+    </table>
+
+  </div>
+
+</div>
+
+<div class="col-12 col-s-12" id="main_footer">
+  <div class="footer">
+      <p> Sign up to your account and trade with others. </p>
+  </div>
+</div>
+
+<script>
+    // define the callAPI function that takes a item name and owner as parameters
+    var callAPI = (itemName,ownerName)=>{
+        // instantiate a headers object
+        var myHeaders = new Headers();
+        // add content type header to object
+        myHeaders.append("Content-Type", "application/json");
+        // using built in JSON utility package turn object to string and store in a variable
+        var raw = JSON.stringify({"itemName":itemName,"ownerName":ownerName});
+        // create a JSON object with parameters for API call and store in a variable
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // make API call with parameters and use promises to get response
+        fetch("https://cweefqf1r9.execute-api.us-east-1.amazonaws.com/dev", requestOptions)
+        .then(response => response.text())
+        .then(result => alert(JSON.parse(result).body))
+        .catch(error => console.log('error', error));
+    }
+</script>
+ 
+</body>
+</html>
