@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Project - Group (1): Community Bank </title>
+<link rel="stylesheet" type="text/css" href="style - Copy.css" />
+</h2>
+
+<body>
+<div class="header">
+    <h1>Local Community Bank</h1>
+</div>
+
+<div class="row">
+  <div class="col-12 col-s-12 menu" id="navigator">
+    <ul>
+     <li>
+        <a href='index.html' id = "home"> HOME </a> 
+        <a href='about.html'> ABOUT </a> 
+        <a href='contact.html'> CONTACT </a>
+        <a href='additem.html'> ADD LISTING </a>
+        <a href='signup.html' id = "sign-up"> SIGN UP </a> 
+        <a href='login.html' id = "login"> LOGIN </a> 
+        
+     </li>
+    </ul>
+  </div>
+
+  <div class="col-12 col-s-12" id="login_ui">
+    <h1> User Sign Up </h1>
+  
+    <form>
+     <table id = "login_table">
+     
+      <tr>
+        <td><label> Username: </label></td>
+        <td><input type="text" id="username"></td> 
+      </tr>
+     
+      <tr>
+        <td><label> Password:</label></td><td> <input type="password" id="password" minlength="10"></td>
+      </tr>
+
+      <!-- <tr>
+        <td><label> Email:</label></td><td> <input type="password" id="password" minlength="10"></td>
+      </tr> -->
+     
+      <tr>
+        <td>&nbsp;</td><td> <input type="checkbox" onclick="ShowPassword()">Show Password</td>
+      </tr>
+
+        <!-- set button onClick method to call the function you want to handle this! -->
+      <tr>
+        <td><button id = "login_button" type="button" onclick="callAPI(document.getElementById('username').value, document.getElementById('password').value)"> Sign Up </button></td><td>&nbsp;</td>   
+      </tr>
+
+    </form>
+    </table>
+
+    <p class="small"> Already have an account? Click <a class="body" id = "pwd_here" href="login.html">here</a> to login.</p>
+  </div>
+
+</div>
+
+<div class="col-12 col-s-12" id="main_footer">
+  <div class="footer">
+      <p> Sign up to your account and trade with others. </p>
+  </div>
+</div>
+
+<script>
+  function ShowPassword() 
+  {
+    var x = document.getElementById("password");
+    if (x.type === "password") 
+    {
+      x.type = "text";
+    } 
+
+    else 
+    {
+      x.type = "password";
+    }
+  } 
+</script>
+
+</body>
+</html>
