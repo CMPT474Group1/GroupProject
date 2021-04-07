@@ -49,7 +49,47 @@
 
     </form>
     </table>
+    <h1> Search Item by Name and Owner</h1>
+  
+    <form>
+    <table id = "searchByOwner_table">
+     
+      <tr>
+        <td><label> Item Name : </label></td>
+        <td><input type="text" id="siName"></td> 
+      </tr>
+     
+      <tr>
+        <td><label>Owner Name :</label></td>
+        <td><input type="text" id="soName"></td>
+      </tr>
 
+        <!-- set button onClick method to call the function you want to handle this! -->
+      <tr>
+        <td><button id="add_button" type="button" onclick="query(document.getElementById('siName').value,document.getElementById('soName').value)">Search Item</button></td><td>&nbsp;</td>   
+      </tr>
+
+    </form>
+    <form>
+    <table id = "scanByItem_table">
+     
+      <tr>
+        <td><label> Item Name : </label></td>
+        <td><input type="text" id="scaniName"></td> 
+      </tr>
+     
+      <tr>
+        <td><label>Owner Name :</label></td>
+        <td><input type="text" id="scanoName"></td>
+      </tr>
+
+        <!-- set button onClick method to call the function you want to handle this! -->
+      <tr>
+        <td><button id="add_button" type="button" onclick="scan(document.getElementById('scaniName').value,document.getElementById('scanoName').value)">Search Item</button></td><td>&nbsp;</td>   
+      </tr>
+
+    </form>
+    </table>
   </div>
 
 </div>
@@ -82,6 +122,51 @@
         .then(result => alert(JSON.parse(result).body))
         .catch(error => console.log('error', error));
     }
+
+    var query = (item,owner)=>{
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          mode: 'cors',
+          cache: 'default',
+        };
+        let params = {
+          "itemName": item,
+          "ownerName": owner
+        };
+        let query = Object.keys(params)
+                     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                     .join('&');
+        let url = 'https://lwqzgtjagb.execute-api.us-east-1.amazonaws.com/dev/searchItem?' + query;
+        fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(result => alert(JSON.parse(result).body))
+        .catch(error => console.log('error', error));
+    }
+    var scan = (item)=>{
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          mode: 'cors',
+          cache: 'default',
+        };
+        let params = {
+          "itemName": item
+        };
+        let query = Object.keys(params)
+                     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                     .join('&');
+        let url = 'https://mx603yzem0.execute-api.us-east-1.amazonaws.com/default/scanByItem?' + query;
+        fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(result => alert(JSON.parse(result).body))
+        .catch(error => console.log('error', error));
+    }
+
 </script>
  
 </body>
