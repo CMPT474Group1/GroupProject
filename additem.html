@@ -117,47 +117,52 @@
     }
 
     var query = (item,owner)=>{
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        var requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          mode: 'cors',
-          cache: 'default',
-        };
-        let params = {
-          "itemName": item,
-          "ownerName": owner
-        };
-        let query = Object.keys(params)
-                     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-                     .join('&');
-        let url = 'https://lwqzgtjagb.execute-api.us-east-1.amazonaws.com/dev/searchItem?' + query;
-        fetch(url, requestOptions)
-        .then(response => response.text())
-        .then(result => alert(JSON.parse(result).body))
-        .catch(error => console.log('error', error));
+        if(item!=''){
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              mode: 'cors',
+              cache: 'default',
+            };
+            let params = {
+              "itemName": item,
+              "ownerName": owner
+            };
+            let query = Object.keys(params)
+                         .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                         .join('&');
+            let url = 'https://lwqzgtjagb.execute-api.us-east-1.amazonaws.com/dev/searchItem?' + query;
+            fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
     }
     var scan = (item)=>{
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        var requestOptions = {
-          method: 'GET',
-          headers: myHeaders,
-          mode: 'cors',
-          cache: 'default',
-        };
-        let params = {
-          "itemName": item
-        };
-        let query = Object.keys(params)
-                     .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-                     .join('&');
-        let url = 'https://mx603yzem0.execute-api.us-east-1.amazonaws.com/default/scanByItem?' + query;
-        fetch(url, requestOptions)
-        .then(response => response.text())
-        .then(result => alert(JSON.parse(result).body))
-        .catch(error => console.log('error', error));
+        if(item!=''){
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              mode: 'cors',
+              cache: 'default',
+            };
+            let params = {
+              "itemName": item
+            };
+            let query = Object.keys(params)
+                         .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                         .join('&');
+            let url = 'https://mx603yzem0.execute-api.us-east-1.amazonaws.com/default/scanByItem?' + query;
+            fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+
     }
 
 </script>
