@@ -44,30 +44,18 @@
 
         <!-- set button onClick method to call the function you want to handle this! -->
       <tr>
-        <td><button id="add_button" type="button" onclick="callAPI(document.getElementById('iName').value,document.getElementById('oName').value)">Register Item</button></td><td>&nbsp;</td>   
+        <td><button id="add_button" type="button" onclick="add(document.getElementById('iName').value,document.getElementById('oName').value)">Register Item</button></td><td>&nbsp;</td>   
+      </tr>
+        
+      <tr>
+        <td><button id="add_button" type="button" onclick="query(document.getElementById('iName').value,document.getElementById('oName').value)">Search Test</button></td><td>&nbsp;</td>   
+      </tr>
+      <tr>
+        <td><button id="add_button" type="button" onclick="delete(document.getElementById('iName').value,document.getElementById('oName').value)">Delete Item</button></td><td>&nbsp;</td>   
       </tr>
 
     </form>
     </table>
-    <form>
-    <table id = "searchByOwner_table">
-     
-      <tr>
-        <td><label> Item Name : </label></td>
-        <td><input type="text" id="siName"></td> 
-      </tr>
-     
-      <tr>
-        <td><label>Owner Name :</label></td>
-        <td><input type="text" id="soName"></td>
-      </tr>
-
-        <!-- set button onClick method to call the function you want to handle this! -->
-      <tr>
-        <td><button id="add_button" type="button" onclick="query(document.getElementById('siName').value,document.getElementById('soName').value)">Search Test</button></td><td>&nbsp;</td>   
-      </tr>
-
-    </form>
         
     <form>
     <table id = "scanByItem_table">
@@ -95,7 +83,7 @@
 
 <script>
     // define the callAPI function that takes a item name and owner as parameters
-    var callAPI = (itemName,ownerName)=>{
+    var add = (itemName,ownerName)=>{
         // instantiate a headers object
         var myHeaders = new Headers();
         // add content type header to object
@@ -163,6 +151,23 @@
             .catch(error => console.log('error', error));
         }
 
+    }
+     var delete = (item,owner)=>{
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({"itemName":item,"ownerName":owner});
+        // create a JSON object with parameters for API call and store in a variable
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+            mode: 'cors',
+            body: raw,
+            redirect: 'follow'
+        };
+        fetch("https://6571n0x09g.execute-api.us-east-1.amazonaws.com/default/deleteItem", requestOptions)
+        .then(response => response.text())
+        .then(result => alert(JSON.parse(result).body))
+        .catch(error => console.log('error', error));
     }
 
 </script>
