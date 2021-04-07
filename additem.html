@@ -50,9 +50,7 @@
       <tr>
         <td><button id="add_button" type="button" onclick="query(document.getElementById('iName').value,document.getElementById('oName').value)">Search Test</button></td><td>&nbsp;</td>   
       </tr>
-      <tr>
-        <td><button id="add_button" type="button" onclick="delete(document.getElementById('iName').value,document.getElementById('oName').value)">Delete Item</button></td><td>&nbsp;</td>   
-      </tr>
+
 
     </form>
     </table>
@@ -152,23 +150,7 @@
         }
 
     }
-     var delete = (item,owner)=>{
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        var raw = JSON.stringify({"itemName":item,"ownerName":owner});
-        // create a JSON object with parameters for API call and store in a variable
-        var requestOptions = {
-            method: 'DELETE',
-            headers: myHeaders,
-            mode: 'cors',
-            body: raw,
-            redirect: 'follow'
-        };
-        fetch("https://6571n0x09g.execute-api.us-east-1.amazonaws.com/default/deleteItem", requestOptions)
-        .then(response => response.text())
-        .then(result => alert(JSON.parse(result).body))
-        .catch(error => console.log('error', error));
-    }
+
 
 </script>
  
