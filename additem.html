@@ -44,12 +44,31 @@
 
         <!-- set button onClick method to call the function you want to handle this! -->
       <tr>
-        <td><button id="add_button" type="button" onclick="callAPI(document.getElementById('iName').value,document.getElementById('oName').value)">Register Item</button></td><td>&nbsp;</td>   
+        <td><button id="add_button" type="button" onclick="add(document.getElementById('iName').value,document.getElementById('oName').value)">Register Item</button></td><td>&nbsp;</td>   
+      </tr>
+        
+      <tr>
+        <td><button id="add_button" type="button" onclick="query(document.getElementById('iName').value,document.getElementById('oName').value)">Search Test</button></td><td>&nbsp;</td>   
+      </tr>
+
+
+    </form>
+    </table>
+        
+    <form>
+    <table id = "scanByItem_table">
+     
+      <tr>
+        <td><label> Item Name : </label></td>
+        <td><input type="text" id="scaniName"></td> 
+      </tr>
+        <!-- set button onClick method to call the function you want to handle this! -->
+      <tr>
+        <td><button id="add_button" type="button" onclick="scan(document.getElementById('scaniName').value)">Search Owner</button></td><td>&nbsp;</td>   
       </tr>
 
     </form>
     </table>
-
   </div>
 
 </div>
@@ -62,7 +81,7 @@
 
 <script>
     // define the callAPI function that takes a item name and owner as parameters
-    var callAPI = (itemName,ownerName)=>{
+    var add = (itemName,ownerName)=>{
         // instantiate a headers object
         var myHeaders = new Headers();
         // add content type header to object
@@ -82,6 +101,57 @@
         .then(result => alert(JSON.parse(result).body))
         .catch(error => console.log('error', error));
     }
+
+    var query = (item,owner)=>{
+        if(item!=''){
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              mode: 'cors',
+              cache: 'default',
+            };
+            let params = {
+              "itemName": item,
+              "ownerName": owner
+            };
+            let query = Object.keys(params)
+                         .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                         .join('&');
+            let url = 'https://lwqzgtjagb.execute-api.us-east-1.amazonaws.com/dev/searchItem?' + query;
+            fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+    }
+    var scan = (item)=>{
+        if(item!=''){
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              mode: 'cors',
+              cache: 'default',
+            };
+            let params = {
+              "itemName": item
+            };
+            let query = Object.keys(params)
+                         .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+                         .join('&');
+            let url = 'https://mx603yzem0.execute-api.us-east-1.amazonaws.com/default/scanByItem?' + query;
+            fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => alert(JSON.parse(result).body))
+            .catch(error => console.log('error', error));
+        }
+
+    }
+
+
 </script>
  
 </body>
