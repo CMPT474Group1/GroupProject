@@ -48,6 +48,10 @@
          <td><label id="name"></label></td>
        </tr>
       
+       <tr>
+        <td><label>Email verified:</label></td>
+        <td><label id="verification"></label></td>
+      </tr>
          <!-- set button onClick method to call the function you want to handle this! -->
       </table>
       <button type="button" onclick="signOut()">Sign out</button>
@@ -80,15 +84,19 @@
                 alert(err);
                 return;
             }
-            console.log('session valid: ' + session.isValid());
-			//Set the profile info
 			cognitoUser.getUserAttributes(function(err, result) {
 				if (err) {
 					console.log(err);
 					return;
 				}
 				console.log(result);
-				document.getElementById("email").innerHTML = result[2].getValue();	
+				document.getElementById("email").innerHTML = result[2].getValue();
+                
+                if (result[1].getValue == true) {
+                    document.getElementById("verification").innerHTML = "You have been verified!";
+                } else {
+                    document.getElementById("verification").innerHTML = "You have not been verified! Please check your email.";
+                }
 			});			
 			
         });
