@@ -111,7 +111,7 @@
         onSuccess: function (result) {
 			  var accessToken = result.getAccessToken().getJwtToken();
 			  console.log(accessToken);	
-        window.open("profile.html");
+        window.open("profile.html", "_self");
         },
 
         onFailure: function(err) {
