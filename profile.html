@@ -44,7 +44,7 @@
        </tr>
       
        <tr>
-         <td><label>Name:</label></td>
+         <td><label style="display: hidden;">Name:</label></td>
          <td><label id="name"></label></td>
        </tr>
       
@@ -92,7 +92,7 @@
 				console.log(result);
 				document.getElementById("email").innerHTML = result[2].getValue();
                 
-                if (result[1].getValue == true) {
+                if (result[1].getValue == "true") {
                     document.getElementById("verification").innerHTML = "You have been verified!";
                 } else {
                     document.getElementById("verification").innerHTML = "You have not been verified! Please check your email.";
