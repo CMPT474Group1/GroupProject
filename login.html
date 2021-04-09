@@ -109,8 +109,9 @@
     
 	cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
-			var accessToken = result.getAccessToken().getJwtToken();
-			console.log(accessToken);	
+			  var accessToken = result.getAccessToken().getJwtToken();
+			  console.log(accessToken);	
+        window.open("profile.html");
         },
 
         onFailure: function(err) {
