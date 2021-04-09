@@ -1,5 +1,8 @@
+/* Referenced this tutorial about scrolling animation: https://mp.weixin.qq.com/s/e5QmpdFr8vkR5Y9MYKWelA */
+
 /* Some parts of the code are referened from the template provided from Canvas */
 /* Reused CSS from W3Schools */
+
 
 body {
   background-color: white;
@@ -173,14 +176,18 @@ p.small {
   background-color: #888888;
   border-style:solid;
   border-color: #888888;
+
 }
 
 #examples{
   background-color: #111111;
 }
 
-.inline-block {
-  display: inline-block;
+
+
+.images {
+  text-align: center;
+  display: block;
 }
 
 #main_footer{
@@ -247,4 +254,27 @@ p.small {
   top: 51%;
   left: 80%;
   padding: 5%;
+}
+
+/* scrolling animation */
+#ui {
+  position: relative;
+  /* top: 0; */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#ui ul {
+  /* list-style: none; */
+  margin: 0;
+  padding: 0;
+  --progress: 0;
+}
+
+#ui img {
+  display: block;
+  text-align: center;
+  margin: auto;
+  transform: scale(calc(2.0 - ( var(--progress)))) translateY(calc(-60px * (1 - var(--progress))));
+  opacity: var(--progress);
 }
