@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> Project - Group (1): Community Bank </title>
-<link rel="stylesheet" type="text/css" href="style - Copy.css" />
-</h2>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> Project - Group (1): Community Bank </title>
+	<link rel="stylesheet" type="text/css" href="style - Copy.css" />
+
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script> 
+	<script src="js/amazon-cognito-auth.min.js"></script>
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script> 
+	<script src="js/amazon-cognito-identity.min.js"></script>  
+</head>
 
 <body>
 <div class="header">
@@ -20,7 +25,8 @@
         <a href='contact.html'> CONTACT </a>
         <a href='additem.html'> ADD LISTING </a>
         <a href='signup.html' id = "sign-up"> SIGN UP </a> 
-        <a href='login.html' id = "login"> LOGIN </a> 
+        <a href='login.html' id = "login"> LOGIN </a>
+        <a href='profile.html' id = "profile"> PROFILE </a> 
         
      </li>
     </ul>
@@ -29,22 +35,31 @@
   <div class="col-12 col-s-12" id="login_ui">
     <h1> Register Item </h1>
   
+  	<div id="warning">
+	  	<label>You must be logged in to register an item!</label>
+	  	<p class="small">Click <a class="body" id = "pwd_here" href="login.html">here</a> to login.</p>
+  	</div>
+
     <form>
-    <table id = "login_table">
+    <table id = "login_table" style="display:none;">
      
-      <tr>
-        <td><label> Item Name : </label></td>
-        <td><input type="text" id="iName"></td> 
+       <tr>
+        <td><label id="userID" style="display:none;"></label></td>
       </tr>
-     
+
       <tr>
         <td><label>Owner Name :</label></td>
-        <td><input type="text" id="oName"></td>
+        <td><label id="ownerName"></label></td>
+      </tr>
+
+     <tr>
+        <td><label> Item Name : </label></td>
+        <td><input type="text" id="iName"></td> 
       </tr>
 
         <!-- set button onClick method to call the function you want to handle this! -->
       <tr>
-        <td><button id="add_button" type="button" onclick="add(document.getElementById('iName').value,document.getElementById('oName').value)">Register Item</button></td><td>&nbsp;</td>   
+        <td><button id="add_button" type="button" onclick="add(document.getElementById('iName').value)">Register Item</button></td><td>&nbsp;</td>   
       </tr>
         
       <tr>
@@ -54,7 +69,7 @@
 
     </form>
     </table>
-        
+    <br>
     <form>
     <table id = "scanByItem_table">
      
@@ -80,14 +95,57 @@
 </div>
 
 <script>
+	// Cognito User
+
+	var poolData = {
+        UserPoolId : 'us-east-1_PcR9LMBcJ',
+        ClientId : '718sp5ac11tb8bmud2h8ulbd7'
+    };
+
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var cognitoUser = userPool.getCurrentUser();
+	
+	window.onload = function(){
+	    if (cognitoUser != null) {
+	        cognitoUser.getSession(function(err, session) {
+	            if (err) {
+	                alert(err);
+	                return;
+	            }
+				cognitoUser.getUserAttributes(function(err, result) {
+					if (err) {
+						console.log(err);
+						return;
+					}
+					  console.log(result);
+            document.getElementById("ownerName").innerHTML = result[2].getValue();
+            document.getElementById("userID").innerHTML = result[0].getValue();
+            // hide nav items & warning
+            document.getElementById("warning").style.display = "none";
+            document.getElementById("login").style.display = "none";
+            document.getElementById("sign-up").style.display = "none";
+            // display form
+            document.getElementById("login_table").style.display = "table";
+            document.getElementById("profile").style.display = "inline";
+				});			
+			
+        	});
+    	}
+	}
+
     // define the callAPI function that takes a item name and owner as parameters
-    var add = (itemName,ownerName)=>{
-        // instantiate a headers object
+    
+    var add = (itemName)=>{
+    	// get owner's name and unique userID
+    	var userID = document.getElementById("userID").innerHTML;
+    	var ownerName = document.getElementById("ownerName").innerHTML;
+    	// instantiate a headers object
         var myHeaders = new Headers();
         // add content type header to object
         myHeaders.append("Content-Type", "application/json");
         // using built in JSON utility package turn object to string and store in a variable
         var raw = JSON.stringify({"itemName":itemName,"ownerName":ownerName});
+        console.log(raw);
         // create a JSON object with parameters for API call and store in a variable
         var requestOptions = {
             method: 'POST',

@@ -179,6 +179,15 @@ p.small {
 
 }
 
+#profile{
+  /* padding: 20px 0; */
+  display: none;
+  background-color: #888888;
+  border-style:solid;
+  border-color: #888888;
+
+}
+
 #examples{
   background-color: #111111;
 }
