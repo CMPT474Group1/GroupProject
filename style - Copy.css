@@ -245,6 +245,11 @@ p.small {
   margin-right: auto;
 }
 
+#scanByItem_table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #pwd_here
 {
   color: #888;
