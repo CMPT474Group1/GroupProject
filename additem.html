@@ -145,28 +145,30 @@
     // define the callAPI function that takes a item name and owner as parameters
     
     var add = (itemName)=>{
-    	// get owner's name and unique userID
-    	var userID = document.getElementById("userID").innerHTML;
-    	var ownerName = document.getElementById("ownerName").innerHTML;
-    	// instantiate a headers object
-        var myHeaders = new Headers();
-        // add content type header to object
-        myHeaders.append("Content-Type", "application/json");
-        // using built in JSON utility package turn object to string and store in a variable
-        var raw = JSON.stringify({"itemName":itemName,"ownerName":ownerName});
-        console.log(raw);
-        // create a JSON object with parameters for API call and store in a variable
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-        // make API call with parameters and use promises to get response
-        fetch("https://cweefqf1r9.execute-api.us-east-1.amazonaws.com/dev", requestOptions)
-        .then(response => response.text())
-        .then(result => alert(JSON.parse(result).body))
-        .catch(error => console.log('error', error));
+	if(itemName!=''){
+		// get owner's name and unique userID
+		var userID = document.getElementById("userID").innerHTML;
+		var ownerName = document.getElementById("ownerName").innerHTML;
+		// instantiate a headers object
+		var myHeaders = new Headers();
+		// add content type header to object
+		myHeaders.append("Content-Type", "application/json");
+		// using built in JSON utility package turn object to string and store in a variable
+		var raw = JSON.stringify({"itemName":itemName,"ownerName":ownerName});
+		console.log(raw);
+		// create a JSON object with parameters for API call and store in a variable
+		var requestOptions = {
+		    method: 'POST',
+		    headers: myHeaders,
+		    body: raw,
+		    redirect: 'follow'
+		};
+		// make API call with parameters and use promises to get response
+		fetch("https://cweefqf1r9.execute-api.us-east-1.amazonaws.com/dev", requestOptions)
+		.then(response => response.text())
+		.then(result => alert(JSON.parse(result).body))
+		.catch(error => console.log('error', error));
+	}
     }
 	var myDelete = (item,owner)=>{
 	    var myHeaders = new Headers();
@@ -204,7 +206,7 @@
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
-        
+	}
     }
     var myScan = (item)=>{
         if(item!=''){
