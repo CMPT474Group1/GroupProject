@@ -92,6 +92,24 @@
       </table>
     </form>
 	  
+    <form class="col-12 col-s-12">
+      <table id = "transfer_table" style="display:none;">
+      
+        <tr>
+          <td><label> Item Name : </label></td>
+          <td><input type="text" id="tiName"></td> 
+        </tr>
+	<tr>
+          <td><label> Transfer ownership to : </label></td>
+          <td><input type="text" id="toName"></td> 
+        </tr>
+          <!-- set button onClick method to call the function you want to handle this! -->
+        <tr>
+          <td><button id="add_button" type="button" onclick="myUpdate(document.getElementById('tiName').value,document.getElementById('toName').value)">Transfer</button></td><td>&nbsp;</td>   
+        </tr>
+      </table>
+    </form>
+	  
   </div>
 
 </div>
@@ -233,6 +251,31 @@
             .catch(error => console.log('error', error));
         }
 
+    }
+    var myUpdate=(item,owner2)=>{
+    	if(item!=''){
+		myDelete(item);
+		var ownerName = owner2;
+		// instantiate a headers object
+		var myHeaders = new Headers();
+		// add content type header to object
+		myHeaders.append("Content-Type", "application/json");
+		// using built in JSON utility package turn object to string and store in a variable
+		var raw = JSON.stringify({"itemName":item,"ownerName":ownerName});
+		console.log(raw);
+		// create a JSON object with parameters for API call and store in a variable
+		var requestOptions = {
+		    method: 'POST',
+		    headers: myHeaders,
+		    body: raw,
+		    redirect: 'follow'
+		};
+		// make API call with parameters and use promises to get response
+		fetch("https://cweefqf1r9.execute-api.us-east-1.amazonaws.com/dev", requestOptions)
+		.then(response => response.text())
+		.then(result => alert(JSON.parse(result).body))
+		.catch(error => console.log('error', error));
+	}
     }
 
 
