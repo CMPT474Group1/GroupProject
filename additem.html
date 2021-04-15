@@ -64,11 +64,11 @@
       </tr>
         
       <tr>
-        <td><button id="add_button" type="button" onclick="myQuery(document.getElementById('iName').value,document.getElementById('ownerName').value)">Search Test</button></td><td>&nbsp;</td>   
+        <td><button id="add_button" type="button" onclick="myQuery(document.getElementById('iName').value)">Search Test</button></td><td>&nbsp;</td>   
       </tr>
 	   
       <tr>
-        <td><button id="add_button" type="button" onclick="myDelete(document.getElementById('iName').value,document.getElementById('ownerName').value)">Delete</button></td><td>&nbsp;</td>   
+        <td><button id="add_button" type="button" onclick="myDelete(document.getElementById('iName').value)">Delete</button></td><td>&nbsp;</td>   
       </tr>
 	    
 	   
@@ -170,7 +170,8 @@
 		.catch(error => console.log('error', error));
 	}
     }
-	var myDelete = (item,owner)=>{
+	var myDelete = (item)=>{
+	    var owner=document.getElementById("ownerName").innerHTML;
 	    var myHeaders = new Headers();
 	    myHeaders.append("Content-Type", "application/json");
 	    var raw = JSON.stringify({"itemName":item,"ownerName":owner});
@@ -184,8 +185,9 @@
 	    .then(result => alert(JSON.parse(result).body))
 	    .catch(error => console.log('error', error));
 	}
-    var myQuery = (item,owner)=>{
+    var myQuery = (item)=>{
         if(item!=''){
+		var owner=document.getElementById("ownerName").innerHTML;
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             var requestOptions = {
