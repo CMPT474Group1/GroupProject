@@ -66,8 +66,15 @@
       <tr>
         <td><button id="add_button" type="button" onclick="query(document.getElementById('iName').value,document.getElementById('oName').value)">Search Test</button></td><td>&nbsp;</td>   
       </tr>
-
-
+	   
+      <tr>
+        <td><button id="add_button" type="button" onclick="myDelete(document.getElementById('iName').value,document.getElementById('oName').value)">Delete</button></td><td>&nbsp;</td>   
+      </tr>
+	    
+	   
+      <tr>
+        <td><button id="add_button" type="button" onclick="">Transfer Ownership</button></td><td>&nbsp;</td>   
+      </tr>
     </form>
     </table>
 	  
@@ -161,7 +168,20 @@
         .then(result => alert(JSON.parse(result).body))
         .catch(error => console.log('error', error));
     }
-
+	var myDelete = (item,owner)=>{
+	    var myHeaders = new Headers();
+	    myHeaders.append("Content-Type", "application/json");
+	    var raw = JSON.stringify({"itemName":item,"ownerName":owner});
+	    var requestOptions = {
+		method: 'DELETE',
+		headers: myHeaders,
+		body: raw
+	    };
+	    fetch("https://6571n0x09g.execute-api.us-east-1.amazonaws.com/default/deleteItem", requestOptions)
+	    .then(response => response.text())
+	    .then(result => alert(JSON.parse(result).body))
+	    .catch(error => console.log('error', error));
+	}
     var query = (item,owner)=>{
         if(item!=''){
             var myHeaders = new Headers();
