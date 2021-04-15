@@ -292,3 +292,13 @@ p.small {
   transform: scale(calc(2.0 - ( var(--progress)))) translateY(calc(-60px * (1 - var(--progress))));
   opacity: var(--progress);
 }
+
+#transfer_title {
+  display: none;
+  padding-top: 10px;
+}
+
+#search_title {
+  display: none;
+  padding-top: 10px;
+}
