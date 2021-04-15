@@ -64,7 +64,7 @@
       </tr>
         
       <tr>
-        <td><button id="add_button" type="button" onclick="query(document.getElementById('iName').value,document.getElementById('oName').value)">Search Test</button></td><td>&nbsp;</td>   
+        <td><button id="add_button" type="button" onclick="myQuery(document.getElementById('iName').value,document.getElementById('oName').value)">Search Test</button></td><td>&nbsp;</td>   
       </tr>
 	   
       <tr>
@@ -73,7 +73,7 @@
 	    
 	   
       <tr>
-        <td><button id="add_button" type="button" onclick="">Transfer Ownership</button></td><td>&nbsp;</td>   
+        <td><button id="add_button" type="button">Transfer Ownership</button></td><td>&nbsp;</td>   
       </tr>
     </form>
     </table>
@@ -87,7 +87,7 @@
         </tr>
           <!-- set button onClick method to call the function you want to handle this! -->
         <tr>
-          <td><button id="add_button" type="button" onclick="scan(document.getElementById('scaniName').value)">Search Owner</button></td><td>&nbsp;</td>   
+          <td><button id="add_button" type="button" onclick="myScan(document.getElementById('scaniName').value)">Search Owner</button></td><td>&nbsp;</td>   
         </tr>
       </table>
     </form>
@@ -182,7 +182,7 @@
 	    .then(result => alert(JSON.parse(result).body))
 	    .catch(error => console.log('error', error));
 	}
-    var query = (item,owner)=>{
+    var myQuery = (item,owner)=>{
         if(item!=''){
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -204,9 +204,9 @@
             .then(response => response.text())
             .then(result => alert(JSON.parse(result).body))
             .catch(error => console.log('error', error));
-        }
+        
     }
-    var scan = (item)=>{
+    var myScan = (item)=>{
         if(item!=''){
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
